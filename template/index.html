@@ -1,0 +1,34 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+       <div class="container py-5">
+
+              <div class="d-flex gap-3">
+              <a href="/add-todo">Add To-do</a>
+              <a href="/register">Register</a>
+              </div>
+              <div class="row">
+    
+                     <div class="col-md-4">
+                            <!-- {% include 'form.html' %} -->
+                     </div>
+                     <div class="col-md-8 d-flex flex-column gap-3">
+                            
+                            {% for To_do in todo %}
+                                   <div class="w-100 border rounded-3 p-2">
+                                          <h3>{{To_do.title}}</h3>
+                                          <small>{{To_do.time}}</small>
+                                          <p class="text-muted">
+                                                 {{To_do.description}}
+                                          </p>
+                                          <a href="/delete-todo/{{To_do.id}}" class="btn btn-sm btn-danger">Delete</a>
+                                          <a href="/edit-todo/{{To_do.id}}" class="btn btn-sm btn-danger">Edit</a>
+                                   </div>
+                            {% endfor %}
+                                   
+                     </div>
+              </div>
+       </div>
+{% endblock content %}
+    

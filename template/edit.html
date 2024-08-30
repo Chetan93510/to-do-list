@@ -1,0 +1,26 @@
+{% extends './base.html' %}
+
+
+{% block content %}
+    
+<div class="container py-5">
+
+    <div class="d-flex gap-3">
+    <a href="/edit-todo">edit To_do</a>
+    </div>
+    <div class="row">
+
+           <div class="col-md-4">
+                  <form action="" method="post">
+                      {% csrf_token %}
+                      {{form.as_div}}
+                      <button class="btn btn-danger">Submit</button>
+                  </form>
+           </div>
+          
+    </div>
+</div>
+
+
+{% endblock content %}
+    
