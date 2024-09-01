@@ -5,6 +5,7 @@ from .import views
 urlpatterns = [
     path('',views.Home.as_view() , name= 'home'),
     path('mail', views.mailSendView , name= 'mail'),
+    path('gallery', views.GalleryCreateView.as_view() , name= 'gallery'),
     path('register', views.RegisterView.as_view() , name= 'register'),
     path('login', views.LoginView.as_view() , name= 'login'),
     path('add-todo',views.TodoCreateView.as_view(), name= 'add_to-do'),

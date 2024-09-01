@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils.decorators import method_decorator
 
-from .models import To_do
+from .models import To_do, Gallery
 
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView 
@@ -35,7 +35,7 @@ class Home(View):
         @method_decorator(login_required(login_url="/login"))
         def get(self,request):
              todo = To_do.objects.all()
-             return render (request, self.template_name, {'todo': todo})
+             return render (request, self.template_name, {'todo': todo, 'gallery':Gallery.objects.all()})
         
 class TodoCreateView(CreateView):
     model = To_do
@@ -142,3 +142,12 @@ def mailSendView(request):
     messages.success(request, "Successfully sent.")
 
     return redirect('/')
+
+
+
+
+class GalleryCreateView(CreateView):
+    model = Gallery
+    fields = '__all__'
+    template_name = "gallery.html"
+    success_url = "/"

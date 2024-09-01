@@ -26,6 +26,12 @@
                                           <a href="/edit-todo/{{To_do.id}}" class="btn btn-sm btn-danger">Edit</a>
                                    </div>
                             {% endfor %}
+
+                            
+                            {% for image in gallery %}
+                                   <img src="/media/{{image.image}}" alt="{{image.alt}}">
+                            {% endfor %}
+                                   
                                    
                      </div>
               </div>
