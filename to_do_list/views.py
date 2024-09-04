@@ -8,12 +8,14 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
-
+from django.views.decorators.cache import cache_page
 from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail 
 from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+
+from .utils import filter_todo_with_id
 
 # Create your views here.
 # def name(request):
@@ -31,9 +33,10 @@ from django.template.loader import render_to_string
 class Home(View):
         template_name = "index.html"
 
-
+        @method_decorator(cache_page(60*15))
         @method_decorator(login_required(login_url="/login"))
         def get(self,request):
+            #  todo = filter_todo_with_id(1)
              todo = To_do.objects.all()
              return render (request, self.template_name, {'todo': todo, 'gallery':Gallery.objects.all()})
         
