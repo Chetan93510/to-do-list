@@ -4,6 +4,7 @@ from .import views
 
 urlpatterns = [
     path('',views.Home.as_view() , name= 'home'),
+    path('s',views.SessionView.as_view() , name= 's'),
     path('mail', views.mailSendView , name= 'mail'),
     path('gallery', views.GalleryCreateView.as_view() , name= 'gallery'),
     path('register', views.RegisterView.as_view() , name= 'register'),

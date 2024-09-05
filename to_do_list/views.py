@@ -14,6 +14,8 @@ from django.core.mail import send_mail
 from django.core.mail.message import EmailMultiAlternatives
 from django.template.loader import render_to_string
 
+from django.contrib import sessions
+
 
 from .utils import filter_todo_with_id
 
@@ -154,3 +156,58 @@ class GalleryCreateView(CreateView):
     fields = '__all__'
     template_name = "gallery.html"
     success_url = "/"
+
+
+
+class SessionView(View):
+     template =  'session.html'   
+
+     products = [
+             {
+             'id': 1,
+                'name': 'Laptop',
+             'price': 52000
+             },
+             {
+             'id': 2,
+                'name': 'Mouse',
+             'price': 150
+             },
+             {
+             'id': 3,
+                'name': 'Phone',
+             'price': 15000
+             }
+        ]
+
+     def get(self, request):
+        cart_items = request.session.get('cart') or []
+        items = []
+        total = 0
+        for item in cart_items:
+            obj_index = item['product_id']
+            obj = self.products[int(obj_index) - 1]
+            obj['quantity'] = item['quantity']
+            price = obj['price'] * obj['quantity']
+
+            total = total + price
+            items.append(obj)
+
+        print(total)
+        print(items)
+        return render(request, self.template, {'products': self.products, 'cart_items': item})
+     
+     def post(self, request):
+            cart = request.session.get('cart') or []
+            prod_id = request.POST.get('product_id')
+            quantity = request.POST.get('quantity')
+
+            obj = {'product_id': prod_id,'quantity':quantity}
+
+            cart.append(obj)
+
+            request.session['cart'] = cart
+
+            return redirect('s')
+
+        

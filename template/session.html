@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Session
+{% endblock title %}
+    
+
+
+{% block content %}
+    <div class="container py-5">
+
+<div class="row">
+    <div class="col-md-4">
+        {% for product in products %}
+    <div class="border mb-2 p-2 rounded-2">
+        {{product.name}}
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{product.id}}" name="product_id">
+            <input type="hidden" value="1" name="quantity">
+            <button class="btn btn-sm btn-info">Add To Cart</button>
+        </form>
+    </div>
+{% endfor %}
+    </div>
+    <div class="col-md-4">
+        
+        {% for item in cart_items %}
+            <li>{{item}}</li>
+        {% endfor %}
+            
+    </div>
+</div>
+    
+    </div>
+{% endblock content %}
+    
